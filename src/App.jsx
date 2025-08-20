@@ -43,7 +43,7 @@ const App = () => {
             <Route path='/hoots' element={<HootList hoots={hoots} />} />
             <Route
               path='/hoots/:hootId'
-              element={<HootDetails />}
+              element={<HootDetails  />}
             />
             <Route path='/hoots/new' element={<HootForm handleAddHoot={handleAddHoot} />} />
           </>
