@@ -2,6 +2,7 @@
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import * as hootService from '../../services/hootService';
+import CommentForm from '../CommentForm/CommentForm';
 
 const HootDetails = () => {
   const { hootId } = useParams();
@@ -31,6 +32,7 @@ const HootDetails = () => {
       </section>
       <section>
         <h2>Comments</h2>
+        <CommentForm />
 
         {!hoot.comments.length && <p>There are no comments.</p>}
 
