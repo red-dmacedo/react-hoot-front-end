@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import { UserContext } from './contexts/UserContext';
 import HootList from './components/HootList/HootList';
 import * as hootService from './services/hootService';
+import HootDetails from './components/HootDetails/HootDetails';
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -32,6 +33,10 @@ const App = () => {
         {user ? (
           <>
             <Route path='/hoots' element={<HootList hoots={hoots} />} />
+            <Route 
+              path='/hoots/:hootId'
+              element={<HootDetails />}
+            />
           </>
         ) : (
           <>
