@@ -23,6 +23,16 @@ const HootDetails = (props) => {
     setHoot({ ...hoot, comments: [...hoot.comments, newComment] });
   };
 
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const removedComment = await hootService.deleteComment(hootId, commentId);
+      if (!removedComment) throw new Error(removedComment.error);
+      setHoot({ ...hoot, comments: hoot.comments.filter(el => el._id !== commentId) });
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
   if (!hoot) return <main>Loading...</main>;
   return (
     <main>
@@ -43,12 +53,12 @@ const HootDetails = (props) => {
             </>
           )}
         </header>
-        <p style={{color: 'gray'}}>{hoot.text}</p>
+        <p style={{ color: 'gray' }}>{hoot.text}</p>
       </section>
       <section>
         <h2>Comments</h2>
         {/* Pass the handleAddComment function to the CommentForm Component */}
-        <CommentForm handleAddComment={handleAddComment}/>
+        <CommentForm handleAddComment={handleAddComment} />
 
         {!hoot.comments.length && <p>There are no comments.</p>}
 
@@ -60,6 +70,14 @@ const HootDetails = (props) => {
                 ${new Date(comment.createdAt).toLocaleDateString()}`}
               </p>
             </header>
+            {comment.author._id === user._id && (
+              <>
+                <Link to={`/hoots/${hootId}/comments/${comment._id}/edit`}>Edit</Link>
+                <button onClick={() => handleDeleteComment(comment._id)}>
+                  Delete
+                </button>
+              </>
+            )}
             <p>{comment.text}</p>
           </article>
         ))}
